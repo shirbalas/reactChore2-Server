@@ -2,8 +2,11 @@ const { response } = require("express");
 const express = require("express");
 const { default: mongoose } = require("mongoose");
 const Product = require("./models/Product");
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors({origin:'*'}));
 
 mongoose.connect("mongodb+srv://108user:108password@cluster0.hmdji17.mongodb.net/ReactChore2?retryWrites=true&w=majority", { useNewUrlParser: true })
     .then(() => {
@@ -11,6 +14,7 @@ mongoose.connect("mongodb+srv://108user:108password@cluster0.hmdji17.mongodb.net
     }).catch(err => {
         console.log("no connection start");
     });
+
 
 app.get('/', (req, res) => {
     res.status(200);
