@@ -3,6 +3,7 @@ const express = require("express");
 const { default: mongoose } = require("mongoose");
 const Product = require("./models/Product");
 const cors = require('cors');
+const indexRouter = require("./routes/indexRouter")
 
 const app = express();
 
@@ -16,20 +17,7 @@ mongoose.connect("mongodb+srv://108user:108password@cluster0.hmdji17.mongodb.net
     });
 
 
-app.get('/', (req, res) => {
-    res.status(200);
-});
-
-app.get('/all', async (req, res) => {
-    try {
-        const products = await Product.find({});
-        console.log({ products });
-        res.status(200).send({ products });
-    } catch (error) {
-        console.log(error)
-        res.send(error);
-    }
-});
+app.use('/', indexRouter);
 
 app.listen(3005, () => {
     console.log("app listening on port 3005");
